@@ -52,6 +52,29 @@ class Random:
         else:
             return 0
 
+    # function returns Nsamples number of dice rolls.
+    def Dice(self, Nsamples, p=np.full(6, 1/6.)):
+        Samples = np.zeros(Nsamples)
+        for i in p:
+            if i < 0. or i > 1.:
+                return Samples
+        
+        for i in range(Nsamples):
+            R = self.rand()
+            if R < p[0]:
+                Samples[i] = 1
+            elif R < np.sum(p[:2]):
+                Samples[i] = 2
+            elif R < np.sum(p[:3]):
+                Samples[i] = 3
+            elif R < np.sum(p[:4]):
+                Samples[i] = 4
+            elif R < np.sum(p[:5]):
+                Samples[i] = 5
+            else:
+                Samples[i] = 6
+        return Samples
+
     # function returns a random double (0 to infty) according to an exponential distribution
     def Exponential(self, beta=1.):
       # make sure beta is consistent with an exponential
